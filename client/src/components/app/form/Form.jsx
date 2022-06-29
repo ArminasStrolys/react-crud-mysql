@@ -16,6 +16,7 @@ const Form = () => {
         <input type="phone" placeholder="Enter your phone" />
         <label>E-mail address:</label>
         <input type="email" placeholder="Enter your e-mail" />
+        <button type="submit">Add to database</button>
       </form>
     </div>
   );
