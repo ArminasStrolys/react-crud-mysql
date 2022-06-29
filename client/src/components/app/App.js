@@ -1,9 +1,10 @@
-
+import Form from "./form/Form";
 
 function App() {
   return (
-    <div className="App">
-
+    <div style={{ textAlign: "center" }}>
+      <h1>TESTING</h1>
+      <Form />
     </div>
   );
 }
