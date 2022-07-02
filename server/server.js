@@ -1,25 +1,35 @@
-const express = require('express')
-const app = express()
-const mysql = require('mysql')
+const express = require("express");
+const app = express();
+const mysql = require("mysql");
 
-const database = mysql.createConnection({
-    user: 'root',
-    host: 'localhost',
-    password: '',
-    database: 'crud_app_test'
-})
+const db = mysql.createConnection({
+  user: "root",
+  host: "localhost",
+  password: "",
+  database: "crud_app_test",
+});
 
-app.post('/create', (req, res) => {
-    const name = req.body.name
-    const surname = req.body.surname
-    const date_of_birth = req.body.date_of_birth
-    const coolness = req.body.coolness
-    const phone = req.body.phone
-    const email = req.body.email
-})
+app.post("/create", (req, res) => {
+  const name = req.body.name;
+  const surname = req.body.surname;
+  const date_of_birth = req.body.date_of_birth;
+  const coolness = req.body.coolness;
+  const phone = req.body.phone;
+  const email = req.body.email;
 
+  db.query(
+    "INSERT INTO crud_app_test (name, surname, date_of_birth, coolness, phone, email) VALUES (?,?,?,?,?,?)",
+    [name, surname, date_of_birth, coolness, phone, email],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Values have been written.");
+      }
+    }
+  );
+});
 
 app.listen(3001, () => {
-    console.log("server running on 3001")
-})
-
+  console.log("server running on 3001");
+});

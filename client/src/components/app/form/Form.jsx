@@ -1,17 +1,33 @@
 import React, { useState } from "react";
+import Axios from 'axios'
 
 const Form = () => {
   const [data, setData] = useState({
     name: "",
     surname: "",
-    dob: "",
+    date_of_birth: "",
     coolness: 1,
     phone: 0,
     email: "",
   });
 
+  // const addUser = () => {
+
+  // }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    Axios.post('http://localhost:3001/create', {
+
+    name: data.name,
+    surname: data.surname,
+    date_of_birth: data.date_of_birth,
+    coolness: data.coolness,
+    phone: data.phone,
+    email: data.email
+  }).then(()=>{
+    console.log("data sent")
+  })
     console.log(data);
   };
 
@@ -36,7 +52,7 @@ const Form = () => {
         <input
           type="date"
           defaultValue="2000-01-01"
-          onChange={(e) => setData({ ...data, dob: e.target.value })}
+          onChange={(e) => setData({ ...data, date_of_birth: e.target.value })}
           required
         />
         <label>Coolness level:</label>
