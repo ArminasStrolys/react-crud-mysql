@@ -1,12 +1,17 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
+// const cors = require('cors') uncomment this if you dont have CORS in your browser
+
+// app.use(cors()) uncomment this if you dont have CORS in your browser
+
+app.use(express.json())
 
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
   password: "",
-  database: "crud_app_test",
+  database: "db_for_crud_app",
 });
 
 app.post("/create", (req, res) => {

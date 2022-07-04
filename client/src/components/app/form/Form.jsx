@@ -6,19 +6,14 @@ const Form = () => {
     name: "",
     surname: "",
     date_of_birth: "",
-    coolness: 1,
-    phone: 0,
+    coolness: "",
+    phone: "",
     email: "",
   });
-
-  // const addUser = () => {
-
-  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     Axios.post('http://localhost:3001/create', {
-
     name: data.name,
     surname: data.surname,
     date_of_birth: data.date_of_birth,
@@ -29,6 +24,14 @@ const Form = () => {
     console.log("data sent")
   })
     console.log(data);
+    setData({
+      name: "",
+      surname: "",
+      date_of_birth: "",
+      coolness: "",
+      phone: "",
+      email: "",
+    })
   };
 
   return (
@@ -38,6 +41,7 @@ const Form = () => {
         <input
           type="text"
           placeholder="Enter your name"
+          value={data.name}
           onChange={(e) => setData({ ...data, name: e.target.value })}
           required
         />
@@ -45,13 +49,14 @@ const Form = () => {
         <input
           type="text"
           placeholder="Enter your surname"
+          value={data.surname}
           onChange={(e) => setData({ ...data, surname: e.target.value })}
           required
         />
         <label>Date of birth:</label>
         <input
           type="date"
-          defaultValue="2000-01-01"
+          value={data.date_of_birth}
           onChange={(e) => setData({ ...data, date_of_birth: e.target.value })}
           required
         />
@@ -61,6 +66,7 @@ const Form = () => {
           min="1"
           max="10"
           placeholder="From 1 to 10"
+          value={data.coolness}
           onChange={(e) => setData({ ...data, coolness: e.target.value })}
           required
         />
@@ -68,6 +74,7 @@ const Form = () => {
         <input
           type="phone"
           placeholder="Enter your phone"
+          value={data.phone}
           onChange={(e) => setData({ ...data, phone: e.target.value })}
           required
         />
@@ -75,6 +82,7 @@ const Form = () => {
         <input
           type="email"
           placeholder="Enter your e-mail"
+          value={data.email}
           onChange={(e) => setData({ ...data, email: e.target.value })}
           required
         />
