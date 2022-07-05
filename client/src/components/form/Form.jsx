@@ -4,11 +4,12 @@ import Users from "../users/Users";
 
 const Form = () => {
 
+  const [minimize, setMinimize] = useState(false)
+
   useEffect(() => {
-    getUsers();
+    getUsers()
   }, []);
 
-  const [minimize, setMinimize] = useState(false)
   const [data, setData] = useState({
     name: "",
     surname: "",
@@ -25,7 +26,9 @@ const Form = () => {
       setAllUsers(res.data);
     });
   };
-  console.log(allUsers);
+
+console.log(allUsers)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     Axios.post("http://localhost:3001/create", {
@@ -109,14 +112,19 @@ const Form = () => {
             required
           />
           <button type="submit">Add to database</button>
+          <button onClick={(e)=>e.preventDefault(setMinimize(false))}>Hide form</button>
         </form>
       </div>
-
+      <h2>Users list</h2>
       {allUsers.map((user) => 
         <Users 
           key={user.user_id}
           name={user.name}
           surname={user.surname}
+          cool={user.coolness}
+          dob={user.date_of_birth}
+          phone={user.phone}
+          email={user.email}
         />
       )}
 
