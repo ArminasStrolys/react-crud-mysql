@@ -3,11 +3,16 @@ import Axios from "axios";
 import Users from "../users/Users";
 
 const Form = () => {
+  const [minimize, setMinimize] = useState(false);
 
-  const [minimize, setMinimize] = useState(false)
+  // useEffect(() => {
+  //   getUsers()
+  // }, []);
 
   useEffect(() => {
-    getUsers()
+    Axios.get("http://localhost:3001/users").then((res) => {
+      setAllUsers(res.data);
+    });
   }, []);
 
   const [data, setData] = useState({
@@ -21,13 +26,14 @@ const Form = () => {
 
   const [allUsers, setAllUsers] = useState([]);
 
-  const getUsers = () => {
-    Axios.get("http://localhost:3001/users").then((res) => {
-      setAllUsers(res.data);
-    });
-  };
+  // const getUsers = () => {
+  //   Axios.get("http://localhost:3001/users").then((res) => {
+  //     setAllUsers(res.data);
+  //     console.log('info',res.data)
+  //   });
+  // };
 
-console.log(allUsers)
+  console.log(allUsers);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,16 +55,24 @@ console.log(allUsers)
       phone: "",
       email: "",
     });
-    setMinimize(false)
+    setMinimize(false);
+    window.setTimeout(function () {
+      window.location.reload();
+    }, 500);
   };
 
   return (
     <>
-    <form style={{ display: minimize === false ? "block" : "none" }}>
-    <button onClick={(e)=>e.preventDefault(setMinimize(true))}>Show form</button>
-    </form>
+      <form style={{ display: minimize === false ? "block" : "none" }}>
+        <button onClick={(e) => e.preventDefault(setMinimize(true))}>
+          Show form
+        </button>
+      </form>
 
-      <div style={{ display: minimize === true ? "block" : "none" }} className="form-class">
+      <div
+        style={{ display: minimize === true ? "block" : "none" }}
+        className="form-class"
+      >
         <form onSubmit={handleSubmit} className="form-input-class">
           <label>Name:</label>
           <input
@@ -112,12 +126,14 @@ console.log(allUsers)
             required
           />
           <button type="submit">Add to database</button>
-          <button onClick={(e)=>e.preventDefault(setMinimize(false))}>Hide form</button>
+          <button onClick={(e) => e.preventDefault(setMinimize(false))}>
+            Hide form
+          </button>
         </form>
       </div>
       <h2>Users list</h2>
-      {allUsers.map((user) => 
-        <Users 
+      {allUsers.map((user) => (
+        <Users
           key={user.user_id}
           name={user.name}
           surname={user.surname}
@@ -126,8 +142,7 @@ console.log(allUsers)
           phone={user.phone}
           email={user.email}
         />
-      )}
-
+      ))}
     </>
   );
 };
