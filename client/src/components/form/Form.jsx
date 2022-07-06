@@ -5,10 +5,6 @@ import Users from "../users/Users";
 const Form = () => {
   const [minimize, setMinimize] = useState(false);
 
-  // useEffect(() => {
-  //   getUsers()
-  // }, []);
-
   useEffect(() => {
     Axios.get("http://localhost:3001/users").then((res) => {
       setAllUsers(res.data);
@@ -26,13 +22,6 @@ const Form = () => {
 
   const [allUsers, setAllUsers] = useState([]);
 
-  // const getUsers = () => {
-  //   Axios.get("http://localhost:3001/users").then((res) => {
-  //     setAllUsers(res.data);
-  //     console.log('info',res.data)
-  //   });
-  // };
-
   console.log(allUsers);
 
   const handleSubmit = (e) => {
@@ -45,7 +34,16 @@ const Form = () => {
       phone: data.phone,
       email: data.email,
     }).then(() => {
-      console.log("data sent");
+      setAllUsers([
+        ...allUsers, {
+          name: data.name,
+          surname: data.surname,
+          date_of_birth: data.date_of_birth,
+          coolness: data.coolness,
+          phone: data.phone,
+          email: data.email,
+        }
+      ])
     });
     setData({
       name: "",
@@ -56,9 +54,6 @@ const Form = () => {
       email: "",
     });
     setMinimize(false);
-    window.setTimeout(function () {
-      window.location.reload();
-    }, 500);
   };
 
   return (
