@@ -22,14 +22,14 @@ const Form = () => {
 
   const [allUsers, setAllUsers] = useState([]);
   const [newName, setNewName] = useState({
-    name: '',
-    surname: '',
-    user_id: ''
-  })
+    name: "",
+    surname: "",
+    user_id: "",
+  });
   const getName = (name, surname, id) => {
-    setNewName({...newName, name: name, surname: surname, user_id: id})
-    updateUser()
-  }
+    setNewName({ ...newName, name: name, surname: surname, user_id: id });
+    updateUser(id, name);
+  };
 
   console.log(allUsers);
 
@@ -66,11 +66,28 @@ const Form = () => {
     setMinimize(false);
   };
 
-  const updateUser = () => {
-    Axios.put("http://localhost:3001/update", {name: newName.name, id: newName.user_id}).then((res)=>{
-      alert('updated')
-    })
-  }
+  const updateUser = (id, name) => {
+    Axios.put("http://localhost:3001/update", { name: name, id: id }).then(
+      (respnse) => {
+        setAllUsers(
+          allUsers.map((usr) => {
+            return usr.id === id
+              ? {
+                  id: usr.id,
+                  name: newName,
+                  surname: usr.surname,
+                  date_of_birth: usr.date_of_birth,
+                  coolness: usr.coolness,
+                  phone: usr.phone,
+                  email: usr.email,
+                }
+              : usr;
+          })
+        );
+        console.log("updated");
+      }
+    );
+  };
 
   return (
     <>
