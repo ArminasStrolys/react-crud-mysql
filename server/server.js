@@ -52,11 +52,12 @@ app.get("/users", (req, res) => {
 app.put('/update', (req, res) => {
     const id = req.body.id
     const name = req.body.name
-    db.query("UPDATE crud_app_test SET name = ? WHERE id = ?", [name, id], (err, res) => {
+    // const surname = req.body.surname
+    db.query("UPDATE crud_app_test SET name = ? WHERE user_id = ?", [name, id], (err, result) => {
         if (err) {
             console.log(err)
         } else {
-            res.send(res)
+            res.send(result)
         }
     })
 })

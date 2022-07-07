@@ -16,7 +16,8 @@ const Users = (props) => {
   };
   const handleChange = (e) => {
     e.preventDefault();
-    props.getName(data.name, data.surname);
+    props.getName(data.name, data.surname, props.user_id);
+    console.log(props.user_id)
   };
 
   return (
@@ -42,14 +43,14 @@ const Users = (props) => {
             className="name_change"
             type="text"
             placeholder="Change name"
-            onChange={(e) => setData(e.target.value)}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
           />
           <input
             style={{ display: visible === true ? "block" : "none" }}
             className="surName_change"
             type="text"
             placeholder="Change surname"
-            onChange={(e) => setData(e.target.value)}
+            onChange={(e) => setData({ ...data, surname: e.target.value })}
           />
           <button
             onClick={handleChange}

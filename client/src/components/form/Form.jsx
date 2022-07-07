@@ -21,9 +21,14 @@ const Form = () => {
   });
 
   const [allUsers, setAllUsers] = useState([]);
-  const [newName, setNewName] = useState('')
-  const getName = (data) => {
-    setNewName(data)
+  const [newName, setNewName] = useState({
+    name: '',
+    surname: '',
+    user_id: ''
+  })
+  const getName = (name, surname, id) => {
+    setNewName({...newName, name: name, surname: surname, user_id: id})
+    updateUser()
   }
 
   console.log(allUsers);
@@ -62,7 +67,9 @@ const Form = () => {
   };
 
   const updateUser = () => {
-    Axios.put("http://localhost:3001/update", {name: newName, id: data.user_id})
+    Axios.put("http://localhost:3001/update", {name: newName.name, id: newName.user_id}).then((res)=>{
+      alert('updated')
+    })
   }
 
   return (
@@ -138,6 +145,7 @@ const Form = () => {
       <h2>Users list</h2>
       {allUsers.map((user) => (
         <Users
+          user_id={user.user_id}
           key={user.user_id}
           name={user.name}
           surname={user.surname}
