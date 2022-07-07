@@ -21,6 +21,10 @@ const Form = () => {
   });
 
   const [allUsers, setAllUsers] = useState([]);
+  const [newName, setNewName] = useState('')
+  const getName = (data) => {
+    setNewName(data)
+  }
 
   console.log(allUsers);
 
@@ -56,6 +60,10 @@ const Form = () => {
     });
     setMinimize(false);
   };
+
+  const updateUser = () => {
+    Axios.put("http://localhost:3001/update", {name: newName, id: data.user_id})
+  }
 
   return (
     <>
@@ -137,6 +145,7 @@ const Form = () => {
           dob={user.date_of_birth}
           phone={user.phone}
           email={user.email}
+          getName={getName}
         />
       ))}
     </>

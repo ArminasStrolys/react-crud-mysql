@@ -7,20 +7,34 @@
   padding-left: 20px;
   position: relative;
 }
-.edit_btn, .delete_btn {
+.edit_btn,
+.delete_btn,
+.change_btn {
   position: absolute;
   right: 10px;
-  bottom: 40px;
+  bottom: 35px;
   width: 70px;
   cursor: pointer;
   background-color: rgb(255, 252, 212);
   border: none;
   transition: 0.3s;
-  &:hover{
+  &:hover {
     background-color: rgb(166, 231, 210);
   }
 }
 .delete_btn {
-  bottom: 10px;
+  bottom: 5px;
   background-color: rgb(255, 212, 212);
+}
+.change_btn {
+  bottom: 65px;
+  background-color: rgb(255, 238, 212);
+}
+.name_change, .surName_change{
+  position: absolute;
+  right: 170px;
+  bottom: 95px;
+}
+.surName_change {
+  right: 10px;
 }
