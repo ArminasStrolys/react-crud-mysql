@@ -1,10 +1,26 @@
-
-
-.user_bar{
-    width: 80%;
-    background-color: white;
-    margin: 20px auto;
-    text-align: left;
-    padding: 2px;
-    padding-left: 20px;
+.user_bar {
+  width: 80%;
+  background-color: white;
+  margin: 20px auto;
+  text-align: left;
+  padding: 2px;
+  padding-left: 20px;
+  position: relative;
+}
+.edit_btn, .delete_btn {
+  position: absolute;
+  right: 10px;
+  bottom: 40px;
+  width: 70px;
+  cursor: pointer;
+  background-color: rgb(255, 252, 212);
+  border: none;
+  transition: 0.3s;
+  &:hover{
+    background-color: rgb(166, 231, 210);
+  }
+}
+.delete_btn {
+  bottom: 10px;
+  background-color: rgb(255, 212, 212);
 }

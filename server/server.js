@@ -49,6 +49,20 @@ app.get("/users", (req, res) => {
   );
 });
 
+app.put('/update', (req, res) => {
+    const id = req.body.id
+    const name = req.body.name
+    db.query("UPDATE crud_app_test SET name = ? WHERE id = ?", [name, id], (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(res)
+        }
+    })
+})
+
+// app.delete('/delete')
+
 app.listen(3001, () => {
   console.log("server running on 3001");
 });

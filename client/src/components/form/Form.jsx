@@ -35,15 +35,16 @@ const Form = () => {
       email: data.email,
     }).then(() => {
       setAllUsers([
-        ...allUsers, {
+        ...allUsers,
+        {
           name: data.name,
           surname: data.surname,
           date_of_birth: data.date_of_birth,
           coolness: data.coolness,
           phone: data.phone,
           email: data.email,
-        }
-      ])
+        },
+      ]);
     });
     setData({
       name: "",
