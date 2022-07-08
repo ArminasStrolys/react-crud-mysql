@@ -12,7 +12,7 @@ const Form = () => {
   }, []);
 
   const [data, setData] = useState({
-    id: '',
+    id: "",
     name: "",
     surname: "",
     date_of_birth: "",
@@ -22,15 +22,13 @@ const Form = () => {
   });
 
   const [allUsers, setAllUsers] = useState([]);
-  // const [newName, setNewName] = useState({
-  //   name: "",
-  //   surname: "",
-  //   user_id: "",
-  // });
-  
+
+  const getId = (id) => {
+    deleteUser(id);
+  };
+
   const getName = (name, surname, id) => {
-    // setNewName({ ...newName, name: name, surname: surname, user_id: id });
-    updateUser(id, name, surname);
+    updateUser(name, surname, id);
   };
 
   console.log(allUsers);
@@ -68,28 +66,33 @@ const Form = () => {
     setMinimize(false);
   };
 
-  const updateUser = (id, name, surname) => {
-    Axios.put("http://localhost:3001/update", { name: name, id: id, surname: surname}).then(
-      (respnse) => {
-        setAllUsers(
-          allUsers.map((usr) => {
-            return usr.id === id
-              ? {
-                  id: usr.id,
-                  name: name,
-                  surname: surname,
-                  date_of_birth: usr.date_of_birth,
-                  coolness: usr.coolness,
-                  phone: usr.phone,
-                  email: usr.email,
-                }
-              : usr;
-          })
-        );
-        console.log("updated");
-        window.location.reload(1)
-      }
-    );
+  const updateUser = (name, surname, id) => {
+    Axios.put("http://localhost:3001/update", {
+      name: name,
+      surname: surname,
+      id: id,
+    }).then((respnse) => {
+      setAllUsers(
+        allUsers.map((usr) => {
+          return usr.id === id
+            ? {
+                id: usr.id,
+                name: name,
+                surname: surname,
+                date_of_birth: usr.date_of_birth,
+                coolness: usr.coolness,
+                phone: usr.phone,
+                email: usr.email,
+              }
+            : usr;
+        })
+      );
+      window.location.reload(1);
+    });
+  };
+
+  const deleteUser = (id) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`);
   };
 
   return (
@@ -174,6 +177,7 @@ const Form = () => {
           phone={user.phone}
           email={user.email}
           getName={getName}
+          getId={getId}
         />
       ))}
     </>

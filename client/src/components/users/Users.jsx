@@ -13,6 +13,7 @@ const Users = (props) => {
   };
   const handleDelete = (e) => {
     e.preventDefault();
+    props.getId(props.user_id);
   };
   const handleChange = (e) => {
     e.preventDefault();

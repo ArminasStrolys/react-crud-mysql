@@ -5,7 +5,7 @@ const mysql = require("mysql");
 
 // app.use(cors()) uncomment this if you dont have CORS in your browser
 
-app.use(express.json())
+app.use(express.json());
 
 const db = mysql.createConnection({
   user: "root",
@@ -36,9 +36,22 @@ app.post("/create", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
+  db.query("SELECT * from crud_app_test", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 
+app.put("/update", (req, res) => {
+  const id = req.body.id;
+  const name = req.body.name;
+  const surname = req.body.surname;
   db.query(
-    "SELECT * from crud_app_test",
+    "UPDATE crud_app_test SET name = ?, surname = ? WHERE user_id = ?",
+    [name, surname, id],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -49,20 +62,20 @@ app.get("/users", (req, res) => {
   );
 });
 
-app.put('/update', (req, res) => {
-    const id = req.body.id
-    const name = req.body.name
-    const surname = req.body.surname
-    db.query("UPDATE crud_app_test SET name = ?, surname = ? WHERE user_id = ?", [name, surname, id], (err, result) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.send(result)
-        }
-    })
-})
-
-// app.delete('/delete')
+app.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(
+    "DELETE FROM crud_app_test WHERE user_id = ?",
+    id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 app.listen(3001, () => {
   console.log("server running on 3001");
