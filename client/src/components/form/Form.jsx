@@ -87,12 +87,13 @@ const Form = () => {
             : usr;
         })
       );
-      window.location.reload(1);
+      window.location.reload();
     });
   };
 
   const deleteUser = (id) => {
     Axios.delete(`http://localhost:3001/delete/${id}`);
+    setTimeout(() => window.location.reload(), 100);
   };
 
   return (
