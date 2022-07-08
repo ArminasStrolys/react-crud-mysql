@@ -12,6 +12,7 @@ const Form = () => {
   }, []);
 
   const [data, setData] = useState({
+    id: '',
     name: "",
     surname: "",
     date_of_birth: "",
@@ -21,14 +22,15 @@ const Form = () => {
   });
 
   const [allUsers, setAllUsers] = useState([]);
-  const [newName, setNewName] = useState({
-    name: "",
-    surname: "",
-    user_id: "",
-  });
+  // const [newName, setNewName] = useState({
+  //   name: "",
+  //   surname: "",
+  //   user_id: "",
+  // });
+  
   const getName = (name, surname, id) => {
-    setNewName({ ...newName, name: name, surname: surname, user_id: id });
-    updateUser(id, name);
+    // setNewName({ ...newName, name: name, surname: surname, user_id: id });
+    updateUser(id, name, surname);
   };
 
   console.log(allUsers);
@@ -66,16 +68,16 @@ const Form = () => {
     setMinimize(false);
   };
 
-  const updateUser = (id, name) => {
-    Axios.put("http://localhost:3001/update", { name: name, id: id }).then(
+  const updateUser = (id, name, surname) => {
+    Axios.put("http://localhost:3001/update", { name: name, id: id, surname: surname}).then(
       (respnse) => {
         setAllUsers(
           allUsers.map((usr) => {
             return usr.id === id
               ? {
                   id: usr.id,
-                  name: newName,
-                  surname: usr.surname,
+                  name: name,
+                  surname: surname,
                   date_of_birth: usr.date_of_birth,
                   coolness: usr.coolness,
                   phone: usr.phone,
@@ -85,6 +87,7 @@ const Form = () => {
           })
         );
         console.log("updated");
+        window.location.reload(1)
       }
     );
   };
