@@ -8,5 +8,9 @@ To run this app, you need:
 2) open xampp control panel and run apache and MySQL
 
 3) Open 2 terminals
+
    -In one of the terminals run "cd server" and "nodemon server.js"
+
    -In the second one run "cd client" and "npm start"
+
+Sidenote: You should have CORS in your browser, or you will need to uncomment lines (4 and 6) in server.js file

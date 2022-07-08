@@ -18,7 +18,7 @@ const Users = (props) => {
   const handleChange = (e) => {
     e.preventDefault();
     props.getName(data.name, data.surname, props.user_id);
-    console.log(props.user_id)
+    console.log(props.user_id);
   };
 
   return (
